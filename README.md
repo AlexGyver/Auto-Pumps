@@ -30,10 +30,10 @@
 
 <a id="chapter-2"></a>
 ## Схемы
-### Обычная
-![SCHEME](https://github.com/AlexGyver/ColorMusic/blob/master/schemes/scheme2.jpg)
-### С микрофоном
-![SCHEME](https://github.com/AlexGyver/ColorMusic/blob/master/schemes/scheme3.jpg)
+### 5V
+![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/5V.jpg)
+### 15 помп
+![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/15.jpg)
 
 <a id="chapter-3"></a>
 ## Материалы и компоненты
