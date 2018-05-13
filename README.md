@@ -1,4 +1,4 @@
-![PROJECT_PHOTO](https://github.com/AlexGyver/ColorMusic/blob/master/proj_img.jpg)
+![PROJECT_PHOTO](https://github.com/AlexGyver/Auto-Pumps/blob/master/proj_img.jpg)
 # Многоканальная система автополива на Arduino своими руками
 * [Описание проекта](#chapter-0)
 * [Папки проекта](#chapter-1)
