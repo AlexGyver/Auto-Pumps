@@ -16,6 +16,8 @@
 
    Интерфейс отображается на дисплее 1602 с драйвером на I2C. Версий драйвера существует две.
    Смотри настройку DRIVER_VERSION ниже.
+   
+   Версия 1.2: отработка энкодера сделана через прерывания, работает более чётко
 */
 
 #define DRIVER_VERSION 0    // 0 - маркировка драйвера дисплея кончается на 4АТ, 1 - на 4Т
@@ -42,9 +44,9 @@ static const wchar_t *relayNames[]  = {
   L"Папин куст",
 };
 
-#define CLK 0
-#define DT 1
-#define SW 2
+#define CLK 1
+#define DT 2
+#define SW 0
 
 #include "GyverEncoder.h"
 Encoder enc1(CLK, DT, SW);
@@ -90,6 +92,7 @@ void setup() {
   lcd.backlight();
   lcd.clear();
   enc1.setStepNorm(1);
+  attachInterrupt(0, encISR, CHANGE);
 
   // --------------------- СБРОС НАСТРОЕК ---------------------
   if (!digitalRead(SW)) {          // если нажат энкодер, сбросить настройки до 1
@@ -171,10 +174,14 @@ void flowTick() {
   }
 }
 
+void encISR() {
+  enc1.tick();                  // отработка энкодера
+}
+
 void encoderTick() {
   enc1.tick();                  // отработка энкодера
 
-  if (enc1.isRelease()) {        // если был нажат
+  if (enc1.isRelease()) {       // если был нажат
     arrow_update = true;        // флаг на обновление стрелочки
     reDraw();                   // обновить дисплей
   }
@@ -223,11 +230,13 @@ void reDraw() {
     // вывести все цифровые значения на их места
     //lcd.setCursor(7, 0);
     //lcd.print(current_pump);
-    lcd.setCursor(1, 0);
-    lcd.print("              ");
-    lcd.setCursor(1, 0);
-    lcd.print(relayNames[current_pump]);
-    
+    if (current_set == 0) {
+      lcd.setCursor(1, 0);
+      lcd.print("              ");
+      lcd.setCursor(1, 0);
+      lcd.print(relayNames[current_pump]);
+    }
+
     lcd.setCursor(5, 1);
     lcd.print(period_time[current_pump]);
     if (PERIOD) lcd.print("h ");
