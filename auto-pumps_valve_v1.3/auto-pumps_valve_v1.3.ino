@@ -17,12 +17,15 @@
    Интерфейс отображается на дисплее 1602 с драйвером на I2C. Версий драйвера существует две.
    Смотри настройку DRIVER_VERSION ниже.
    
-   Версия 1.2: отработка энкодера сделана через прерывания, работает более чётко
+   Версия с помпой и клапанами: помпа подключена через реле на пин PUMP_PIN. Остальные
+   реле подключены начиная с пина 4 и управляют клапанами. Логика такая:
+   При срабатывании таймера включается помпа и один из клапанов!
 */
 
 #define DRIVER_VERSION 0    // 0 - маркировка драйвера дисплея кончается на 4АТ, 1 - на 4Т
 #define PUPM_AMOUNT 8       // количество помп, подключенных через реле/мосфет
-#define START_PIN 3         // подключены начиная с пина
+#define START_PIN 4         // подключены начиная с пина
+#define PUMP_PIN 3
 #define SWITCH_LEVEL 0      // реле: 1 - высокого уровня (или мосфет), 0 - низкого
 #define PARALLEL 0          // 1 - параллельный полив, 0 - полив в порядке очереди
 #define TIMER_START 0       // 1 - отсчёт периода с момента ВЫКЛЮЧЕНИЯ помпы, 0 - с момента ВКЛЮЧЕНИЯ помпы
@@ -76,7 +79,7 @@ byte current_set = 2;
 byte current_pump;
 boolean reDraw_flag, arrow_update;
 boolean now_pumping;
-unsigned int period_coef, pumping_coef;
+unsigned long period_coef, pumping_coef;
 
 void setup() {
   // --------------------- КОНФИГУРИРУЕМ ПИНЫ ---------------------
@@ -85,6 +88,7 @@ void setup() {
     pinMode(START_PIN + i, OUTPUT);                   // настраиваем пины
     digitalWrite(START_PIN + i, !SWITCH_LEVEL);       // выключаем от греха
   }
+  pinMode(PUMP_PIN, OUTPUT);
   // --------------------- ИНИЦИАЛИЗИРУЕМ ЖЕЛЕЗО ---------------------
   //Serial.begin(9600);
 
@@ -155,9 +159,10 @@ void periodTick() {
          && (pump_state[i] != SWITCH_LEVEL)
          && !(now_pumping * !PARALLEL)) {
       pump_state[i] = SWITCH_LEVEL;
-      digitalWrite(pump_pins[i], SWITCH_LEVEL);
+      digitalWrite(pump_pins[i], SWITCH_LEVEL);   // открыть КЛАПАН
       pump_timers[i] = millis();
       now_pumping = true;
+      digitalWrite(PUMP_PIN, SWITCH_LEVEL);       // включить общую ПОМПУ
     }
   }
 }
@@ -167,9 +172,10 @@ void flowTick() {
     if ( (millis() - pump_timers[i] > ( (long)pumping_time[i] * pumping_coef) )
          && (pump_state[i] == SWITCH_LEVEL) ) {
       pump_state[i] = !SWITCH_LEVEL;
-      digitalWrite(pump_pins[i], !SWITCH_LEVEL);
+      digitalWrite(pump_pins[i], !SWITCH_LEVEL);   // закрыть КЛАПАН
       if (TIMER_START) pump_timers[i] = millis();
       now_pumping = false;
+      digitalWrite(PUMP_PIN, !SWITCH_LEVEL);       // выключить общую ПОМПУ
     }
   }
 }
