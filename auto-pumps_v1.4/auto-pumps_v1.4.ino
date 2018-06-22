@@ -64,8 +64,8 @@ LCD_1602_RUS lcd(0x27, 16, 2);
 LCD_1602_RUS lcd(0x3f, 16, 2);
 #endif
 // -------- АВТОВЫБОР ОПРЕДЕЛЕНИЯ ДИСПЛЕЯ-------------
-unsigned long pump_timers[PUPM_AMOUNT];
 
+unsigned long pump_timers[PUPM_AMOUNT];
 unsigned int pumping_time[PUPM_AMOUNT];
 unsigned int period_time[PUPM_AMOUNT];
 unsigned int time_left[PUPM_AMOUNT];
@@ -106,11 +106,11 @@ void setup() {
   lcd.clear();                     // очищаем дисплей, продолжаем работу
 
   // --------------------------- НАСТРОЙКИ ---------------------------
-  if (PERIOD) period_coef = 1000 * 60 * 60;  // перевод в часы
-  else period_coef = 1000 * 60;              // перевод в минуты
+  if (PERIOD) period_coef = (long)1000 * (long)60 * 60;  // перевод в часы
+  else period_coef = (long)1000 * 60;              // перевод в минуты
 
   if (PUMPING) pumping_coef = 1000;          // перевод в секунды
-  else pumping_coef = 1000 * 60;             // перевод в минуты
+  else pumping_coef = (long)1000 * 60;       // перевод в минуты
 
   // в ячейке 100 должен быть записан флажок 1, если его нет - делаем (ПЕРВЫЙ ЗАПУСК)
   if (EEPROM.read(100) != 1) {
