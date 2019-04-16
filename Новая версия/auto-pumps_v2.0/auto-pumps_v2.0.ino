@@ -83,7 +83,7 @@ void setup() {
     digitalWrite(START_PIN + i, !SWITCH_LEVEL);       // выключаем от греха
   }
   // --------------------- ИНИЦИАЛИЗИРУЕМ ЖЕЛЕЗО ---------------------
-  Serial.begin(9600);
+  //Serial.begin(9600);
 
   lcd.init();
   lcd.backlight();
