@@ -31,9 +31,9 @@
 <a id="chapter-2"></a>
 ## Схемы
 ### 5V
-![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/5V.jpg)
+![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F%202%2B/14.jpg)
 ### 15 помп
-![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/15.jpg)
+![SCHEME](https://github.com/AlexGyver/Auto-Pumps/blob/master/schemes/%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F%202%2B/12V.jpg)
 
 <a id="chapter-3"></a>
 ## Материалы и компоненты
