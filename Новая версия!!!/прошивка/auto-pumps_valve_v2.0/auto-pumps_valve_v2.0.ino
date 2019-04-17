@@ -18,13 +18,17 @@
    Смотри настройку DRIVER_VERSION ниже.
 
    Версия 2.0: новая система таймеров и меню
+   Версия с помпой и клапанами: помпа подключена через реле на пин PUMP_PIN. Остальные
+   реле подключены начиная с пина 4 и управляют клапанами. Логика такая:
+   При срабатывании таймера включается помпа и один из клапанов!
 */
 
 #define ENCODER_TYPE 1      // тип энкодера (0 или 1). Если энкодер работает некорректно (пропуск шагов), смените тип
 #define ENC_REVERSE 1       // 1 - инвертировать энкодер, 0 - нет
 #define DRIVER_VERSION 0    // 0 - маркировка драйвера дисплея кончается на 4АТ, 1 - на 4Т
 #define PUPM_AMOUNT 8       // количество помп, подключенных через реле/мосфет
-#define START_PIN 4         // подключены начиная с пина
+#define START_PIN 5         // подключены начиная с пина
+#define PUMP_PIN 4          // это реле, ведущее на общую помпу
 #define SWITCH_LEVEL 0      // реле: 1 - высокого уровня (или мосфет), 0 - низкого
 #define PARALLEL 0          // 1 - параллельный полив, 0 - полив в порядке очереди
 #define TIMER_START 1       // 1 - отсчёт периода с момента ВЫКЛЮЧЕНИЯ помпы, 0 - с момента ВКЛЮЧЕНИЯ помпы
@@ -74,9 +78,12 @@ boolean now_pumping;
 
 int8_t thisH, thisM, thisS;
 long thisPeriod;
+boolean startFlag = true;
 
 void setup() {
   // --------------------- КОНФИГУРИРУЕМ ПИНЫ ---------------------
+  pinMode(PUMP_PIN, OUTPUT);
+  digitalWrite(PUMP_PIN, !SWITCH_LEVEL);       // выключаем от греха
   for (byte i = 0; i < PUPM_AMOUNT; i++) {            // пробегаем по всем помпам
     pump_pins[i] = START_PIN + i;                     // настраиваем массив пинов
     pinMode(START_PIN + i, OUTPUT);                   // настраиваем пины
@@ -89,7 +96,7 @@ void setup() {
   lcd.backlight();
   lcd.clear();
   //enc1.setStepNorm(1);
-  attachInterrupt(0, encISR, CHANGE);
+  //attachInterrupt(0, encISR, CHANGE);
   enc1.setType(ENCODER_TYPE);
   if (ENC_REVERSE) enc1.setDirection(REVERSE);
 
@@ -118,6 +125,11 @@ void setup() {
   for (byte i = 0; i < PUPM_AMOUNT; i++) {            // пробегаем по всем помпам
     period_time[i] = EEPROM.readLong(8 * i);          // читаем данные из памяти. На чётных - период (ч)
     pumping_time[i] = EEPROM.readLong(8 * i + 4);     // на нечётных - полив (с)
+
+    if (SWITCH_LEVEL)			// вырубить все помпы
+      pump_state[i] = 0;
+    else
+      pump_state[i] = 1;
   }
 
   // ---------------------- ВЫВОД НА ДИСПЛЕЙ ------------------------
@@ -133,17 +145,20 @@ void loop() {
 
 void periodTick() {
   for (byte i = 0; i < PUPM_AMOUNT; i++) {            // пробегаем по всем помпам
-    if (period_time[i] > 0
-        && millis() - pump_timers[i] >= period_time[i] * 1000
-        && (pump_state[i] != SWITCH_LEVEL)
-        && !(now_pumping * !PARALLEL)) {
+    if (startFlag ||
+        (period_time[i] > 0
+         && millis() - pump_timers[i] >= period_time[i] * 1000
+         && (pump_state[i] != SWITCH_LEVEL)
+         && !(now_pumping * !PARALLEL))) {
       pump_state[i] = SWITCH_LEVEL;
-      digitalWrite(pump_pins[i], SWITCH_LEVEL);
+      digitalWrite(pump_pins[i], SWITCH_LEVEL);   // открыть КЛАПАН
       pump_timers[i] = millis();
       now_pumping = true;
-      Serial.println("Pump #" + String(i) + " ON");
+      digitalWrite(PUMP_PIN, SWITCH_LEVEL);       // включить общую ПОМПУ
+      //Serial.println("Pump #" + String(i) + " ON");
     }
   }
+  startFlag = false;
 }
 
 void flowTick() {
@@ -152,17 +167,20 @@ void flowTick() {
         && millis() - pump_timers[i] >= pumping_time[i] * 1000
         && (pump_state[i] == SWITCH_LEVEL) ) {
       pump_state[i] = !SWITCH_LEVEL;
-      digitalWrite(pump_pins[i], !SWITCH_LEVEL);
+      digitalWrite(pump_pins[i], !SWITCH_LEVEL);   // закрыть КЛАПАН
       if (TIMER_START) pump_timers[i] = millis();
       now_pumping = false;
-      Serial.println("Pump #" + String(i) + " OFF");
+      digitalWrite(PUMP_PIN, !SWITCH_LEVEL);       // выключить общую ПОМПУ
+      //Serial.println("Pump #" + String(i) + " OFF");
     }
   }
 }
 
-void encISR() {
+/*
+  void encISR() {
   enc1.tick();  // отработка энкодера
-}
+  }
+*/
 
 void encoderTick() {
   enc1.tick();    // отработка энкодера
@@ -249,7 +267,7 @@ void changeSet() {
   }
   lcd.setCursor(0, 1);
   if (current_set < 4) {
-    lcd.print(L"ПЕРИОД");
+    lcd.print(L"ПАУЗА ");
     s_to_hms(period_time[current_pump]);
   }
   else {
