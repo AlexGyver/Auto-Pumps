@@ -218,14 +218,18 @@ void changeSettings(int increment) {
       thisH++;
     }
     if (thisS < 0) {
-      thisS = 59;
-      thisM--;
+      if (thisM > 0) {
+        thisS = 59;
+        thisM--;
+      } else thisS = 0;
     }
     if (thisM < 0) {
-      thisM = 59;
-      thisH--;
-      if (thisH < 0) thisH = 0;
+      if (thisH > 0) {
+        thisM = 59;
+        thisH--;
+      } else thisM = 0;
     }
+    if (thisH < 0) thisH = 0;
     if (current_set < 4) period_time[current_pump] = hms_to_s();
     else pumping_time[current_pump] = hms_to_s();
   }
