@@ -39,33 +39,29 @@
 ## Материалы и компоненты
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
 ### Почти все компоненты можно взять в магазине WAVGAT по первым ссылкам
-* Arduino NANO с ногами http://ali.pub/2iaezd http://ali.pub/2iaezy
-* Arduino NANO без ног http://ali.pub/2iaewn http://ali.pub/2iaey0
-* Помпа 5V  http://ali.pub/2iaf0x  http://ali.pub/2iaf1w
-* Помпа 12V http://ali.pub/2iaf41  http://ali.pub/2iaf5l
-* Дисплей http://ali.pub/2iaf75  http://ali.pub/2iaf84
-* Энкодер http://ali.pub/2iafdk  http://ali.pub/2iafe5
-* Реле электромагнитное
-  * 1 канал http://ali.pub/2iafsc
-  * 2 канала http://ali.pub/2iaft4
-  * 4 канала http://ali.pub/2iaftb
-  * 8 каналов http://ali.pub/2iafua
-  * 16 каналов http://ali.pub/2iafuo
-* Реле твердотельное
-  * 1 канал http://ali.pub/2iafwm
-  * 2 канала http://ali.pub/2iafx0
-  * 4 канала http://ali.pub/2iafxe
-  * 8 каналов http://ali.pub/2iafxl
-* Макетная плата http://ali.pub/2iafj7
-* Джамперы папа-мама http://ali.pub/2iafkk
-* Джамперы макетные http://ali.pub/2iafi1
-* Блок питания 5V - любой зарядник для смартфона
-* Блок питания 12V https://alexgyver.ru/converters/
-
-* Разветвитель потока с краниками http://ali.pub/2iafzq
-* Разветвитель потока без краников http://ali.pub/2iag1a
-* Шланг силиконовый http://ali.pub/2iag2u
-* Тройничок http://ali.pub/2iag5k
+* Arduino NANO 328p – искать
+* https://ali.ski/tI7blh
+* https://ali.ski/O4yTxb
+* https://ali.ski/6_rFIS
+* https://ali.ski/gb92E-
+* Помпа 5V https://ali.ski/F3SfA
+* Помпа 12V https://ali.ski/93izNT
+* Дисплей https://ali.ski/3nuOTi
+* Энкодер – искать
+* https://ali.ski/c-hjE
+* https://ali.ski/OygY3d
+* https://ali.ski/II_efl
+* Реле электромагнитное и твердотельное
+* https://ali.ski/mltPvM
+* Макетная плата и провода https://ali.ski/9VsJ5S
+* БП 5V Али искать
+* https://ali.ski/DItEG
+* https://ali.ski/t3YFfU
+* Блок питания 12V https://ali.ski/aZuKv
+* Разветвитель потока с краниками https://ali.ski/dL6vW
+* Разветвитель потока без краников https://ali.ski/dBVsD
+* Шланг силиконовый https://ali.ski/84drv
+* Тройничок https://ali.ski/NxzDrg
 
 ## Вам скорее всего пригодится
 * [Всё для пайки (паяльники и примочки)](http://alexgyver.ru/all-for-soldering/)
