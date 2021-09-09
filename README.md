@@ -40,28 +40,28 @@
 ### Ссылки оставлены на магазины, с которых я закупаюсь уже не один год
 ### Почти все компоненты можно взять в магазине WAVGAT по первым ссылкам
 * Arduino NANO 328p – искать
-* https://ali.ski/tI7blh
-* https://ali.ski/O4yTxb
-* https://ali.ski/6_rFIS
-* https://ali.ski/gb92E-
-* Помпа 5V https://ali.ski/F3SfA
-* Помпа 12V https://ali.ski/93izNT
-* Дисплей https://ali.ski/3nuOTi
+* https://ali.ski/YmG9Gq
+* https://ali.ski/hx3uz
+* https://ali.ski/FlXSWX
+* https://ali.ski/e4iAA
+* Помпа 5V https://ali.ski/R7IYtz
+* Помпа 12V https://ali.ski/hwT8rJ
+* Дисплей https://ali.ski/IxxbEo
 * Энкодер – искать
-* https://ali.ski/c-hjE
-* https://ali.ski/OygY3d
-* https://ali.ski/II_efl
+* https://ali.ski/3_B-5n
+* https://ali.ski/b8Vx5
+* https://ali.ski/UAXAK
 * Реле электромагнитное и твердотельное
-* https://ali.ski/mltPvM
-* Макетная плата и провода https://ali.ski/9VsJ5S
+* https://ali.ski/qWuKT
+* Макетная плата и провода https://ali.ski/xOGLWp
 * БП 5V Али искать
-* https://ali.ski/DItEG
-* https://ali.ski/t3YFfU
-* Блок питания 12V https://ali.ski/aZuKv
-* Разветвитель потока с краниками https://ali.ski/dL6vW
-* Разветвитель потока без краников https://ali.ski/dBVsD
-* Шланг силиконовый https://ali.ski/84drv
-* Тройничок https://ali.ski/NxzDrg
+* https://ali.ski/ePr370
+* https://ali.ski/D1PVN
+* Блок питания 12V https://ali.ski/MmAgQT
+* Разветвитель потока с краниками https://ali.ski/Di0kNh
+* Разветвитель потока без краников https://ali.ski/B36VAr
+* Шланг силиконовый https://ali.ski/sV3V3
+* Тройничок https://ali.ski/2IupZ
 
 ## Вам скорее всего пригодится
 * [Всё для пайки (паяльники и примочки)](http://alexgyver.ru/all-for-soldering/)
